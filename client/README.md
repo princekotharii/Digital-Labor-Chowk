@@ -1,27 +1,16 @@
-# Digital Labor Chowk
+# React + Vite
 
-Mobile-first React + Vite starter for a local labor marketplace.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Included modules
+Currently, two official plugins are available:
 
-- Daily availability toggle for workers
-- Geo-location based worker discovery
-- Skill categories for fast browsing
-- Hindi / regional-first UI patterns
-- Two-way trust rating system
-- Local hardware and equipment directory
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Reusable folder structure
+## React Compiler
 
-- src/components/layout/ - page shell pieces like header and footer
-- src/components/sections/ - reusable homepage sections
-- src/components/ui/ - small UI building blocks such as buttons and headings
-- src/data/ - copy, card data, and constants
-- src/App.jsx - page composition
-- src/index.css - global styles and Tailwind base setup
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Scripts
+## Expanding the ESLint configuration
 
-- npm run dev
-- npm run build
-- npm run lint
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
