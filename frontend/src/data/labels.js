@@ -1,0 +1,28 @@
+export const labels = {
+  hi: {
+    title: 'Digital Labor Chowk',
+    subtitle: 'मजदूर ढूंढना और रोज़गार पाना अब तेज़ और भरोसेमंद।',
+    geo: 'लोकेशन आधारित खोज',
+    map: 'मैप व्यू',
+    list: 'लिस्ट व्यू',
+    radius: 'खोज रेडियस',
+    skills: 'स्किल कैटेगरी',
+    trust: 'ट्रस्ट सिस्टम',
+    language: 'भाषा',
+    voice: 'आवाज़ से लिखें',
+    directory: 'लोकल डायरेक्टरी',
+  },
+  en: {
+    title: 'Digital Labor Chowk',
+    subtitle: 'Find trusted workers quickly and help laborers get daily work with confidence.',
+    geo: 'Geo-based Search',
+    map: 'Map View',
+    list: 'List View',
+    radius: 'Search Radius',
+    skills: 'Skill Categories',
+    trust: 'Trust System',
+    language: 'Language',
+    voice: 'Voice to Text',
+    directory: 'Local Directory',
+  },
+}
