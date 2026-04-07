@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { FaBolt, FaBuilding, FaHome, FaInfoCircle, FaMapMarkerAlt, FaSearch, FaSignInAlt, FaSignOutAlt, FaUserCircle, FaUsers } from 'react-icons/fa'
+import { FaBars, FaBolt, FaBuilding, FaHome, FaInfoCircle, FaMapMarkerAlt, FaSearch, FaSignInAlt, FaSignOutAlt, FaTimes, FaUserCircle, FaUsers } from 'react-icons/fa'
 import { useAuth } from '../hooks/useAuth'
 import { useDemoMode } from '../hooks/useDemoMode'
 
@@ -14,22 +15,35 @@ const navItems = [
 function AppLayout() {
   const { isAuthenticated, user, logout } = useAuth()
   const { demoMode, toggleDemoMode } = useDemoMode()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <div className="dlc-shell">
       <header className="card dlc-header reveal">
         <div className="header-top">
           <div className="brand-block">
-            <div className="logo-lockup">
-              <div className="logo-mark">DLC</div>
-              <div>
-                <strong>Digital Labor Chowk</strong>
-                <p className="muted">One Network. One Workforce.</p>
+            <div className="brand-head-row">
+              <div className="logo-lockup">
+                <div className="logo-mark">DLC</div>
+                <div>
+                  <strong>Digital Labor Chowk</strong>
+                  <p className="muted">One Network. One Workforce.</p>
+                </div>
               </div>
+              <button
+                type="button"
+                className="menu-toggle"
+                aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={menuOpen}
+                aria-controls="main-nav"
+                onClick={() => setMenuOpen((prev) => !prev)}
+              >
+                {menuOpen ? <FaTimes /> : <FaBars />}
+              </button>
             </div>
             <p className="pill">Digital Labor Chowk Platform</p>
-            <h1>Smart Hiring Hub For Daily Workforce</h1>
-            <p className="muted">Modern, mobile-first and location-aware hiring workflows for workers and employers.</p>
+            <h1 className="header-title">Smart Hiring Hub For Daily Workforce</h1>
+            <p className="muted header-subtitle">Modern, mobile-first and location-aware hiring workflows for workers and employers.</p>
             <div className="header-meta-row">
               <span><FaMapMarkerAlt /> Haridwar Region</span>
               <span><FaBolt /> Real-time matching enabled</span>
@@ -53,11 +67,16 @@ function AppLayout() {
           </div>
         </div>
 
-        <nav className="nav-grid" aria-label="Main navigation">
+        <nav
+          id="main-nav"
+          className={`nav-grid ${menuOpen ? 'nav-open' : ''}`}
+          aria-label="Main navigation"
+        >
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={() => setMenuOpen(false)}
               className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
               end={item.to === '/'}
             >
