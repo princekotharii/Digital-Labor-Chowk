@@ -1,6 +1,8 @@
 # Digital Labor Chowk
 
-Mobile-first MERN demo for daily wage workers and employers. Built for college presentation, but structured like a real product.
+Mobile-first MERN platform for daily wage workers and employers. Built with production-style architecture and a real backend workflow.
+
+For architecture and viva explanation, see `PRODUCTION_WORKFLOW.md`.
 
 ## What it does
 
@@ -10,7 +12,7 @@ Mobile-first MERN demo for daily wage workers and employers. Built for college p
 - Basic rating summary
 - Local directory listings
 - English-first UI with Hindi labels support
-- Demo-ready register/login flow
+- Role-based register/login flow
 
 ## Folder Structure
 
@@ -30,7 +32,7 @@ Mobile-first MERN demo for daily wage workers and employers. Built for college p
 - `backend/src/models/` project structure placeholder
 - `backend/src/middleware/` project structure placeholder
 - `backend/src/utils/` helpers
-- `backend/src/data/` demo seed data
+- `backend/src/data/` seed data
 
 ## Frontend Pages
 
@@ -48,7 +50,7 @@ Mobile-first MERN demo for daily wage workers and employers. Built for college p
 
 - Login and signup screens
 - Role selection: Worker / Employer
-- Demo-first auth with persistent local state for presentation
+- Persistent auth state for a smooth login experience
 
 ### Worker Dashboard
 
@@ -75,7 +77,11 @@ Mobile-first MERN demo for daily wage workers and employers. Built for college p
 ## Backend API
 
 - `GET /api/health`
+- `GET /api/auth/me` (protected)
 - `GET /api/workers?radius=5&skill=plumber`
+- `GET /api/workers?radius=5&skill=plumber&page=1&limit=10`
+- `GET /api/workers/me` (worker protected)
+- `PATCH /api/workers/me/availability` (worker protected)
 - `PATCH /api/workers/:id/availability`
 - `GET /api/directory`
 - `GET /api/ratings/summary`
@@ -106,7 +112,7 @@ Frontend: http://localhost:5173
 
 Backend: http://localhost:5000
 
-## Demo Login
+## Seed Login
 
 - Worker: worker@dlc.com / 123456
 - Employer: employer@dlc.com / 123456
@@ -143,13 +149,13 @@ docker compose up --build
 2. Add database user and IP allowlist
 3. Paste connection string into `MONGODB_URI`
 
-## College Demo Script
+## Presentation Script
 
 Use this flow while presenting:
 
 1. Open Home page and explain the problem statement.
 2. Show Login / Register.
-3. Register a new account or use demo credentials.
+3. Register a new account or use the seeded accounts.
 4. Open Workers page and show availability toggle.
 5. Open Employers page and show nearby worker filtering.
 6. Open Directory and Ratings sections.
@@ -157,6 +163,6 @@ Use this flow while presenting:
 
 ## Notes
 
-- The app is intentionally simple and demo-friendly.
-- The current backend uses seed data so it works without MongoDB too.
-- If MongoDB Atlas is configured, you can extend it to store real records.
+- The app is intentionally simple and presentation-friendly.
+- The current backend uses seed data so it works immediately in development.
+- If MongoDB Atlas is configured, the same APIs store real records.

@@ -7,6 +7,8 @@ import DirectoryPage from './pages/DirectoryPage'
 import AboutPage from './pages/AboutPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import JobBrowsePage from './pages/JobBrowsePage'
+import PostJobPage from './pages/PostJobPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/workers" element={<ProtectedRoute><WorkersPage /></ProtectedRoute>} />
         <Route path="/employers" element={<ProtectedRoute><EmployersPage /></ProtectedRoute>} />
         <Route path="/directory" element={<ProtectedRoute><DirectoryPage /></ProtectedRoute>} />
+        <Route path="/browse-jobs" element={<ProtectedRoute><JobBrowsePage /></ProtectedRoute>} />
+        <Route path="/post-job" element={<ProtectedRoute><PostJobPage /></ProtectedRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

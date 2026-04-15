@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { FaBars, FaBolt, FaBuilding, FaHome, FaInfoCircle, FaMapMarkerAlt, FaSearch, FaSignInAlt, FaSignOutAlt, FaTimes, FaUserCircle, FaUsers } from 'react-icons/fa'
 import { useAuth } from '../hooks/useAuth'
-import { useDemoMode } from '../hooks/useDemoMode'
 
 const navItems = [
   { to: '/', label: 'Home', icon: FaHome },
@@ -14,7 +13,6 @@ const navItems = [
 
 function AppLayout() {
   const { isAuthenticated, user, logout } = useAuth()
-  const { demoMode, toggleDemoMode } = useDemoMode()
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -50,9 +48,6 @@ function AppLayout() {
             </div>
           </div>
           <div className="auth-actions">
-            <button type="button" className={`demo-toggle ${demoMode ? 'on' : 'off'}`} onClick={toggleDemoMode}>
-              <FaBolt /> Demo Mode: {demoMode ? 'ON' : 'OFF'}
-            </button>
             {isAuthenticated ? (
               <>
                 <p className="user-badge"><FaUserCircle /> {user.name} ({user.role})</p>
@@ -94,7 +89,7 @@ function AppLayout() {
           <div>
             <strong>Digital Labor Chowk</strong>
             <p>Connecting workers and employers with trust, location and speed.</p>
-            <p>College demo ready: login, register and protected pages.</p>
+            <p>Live workflow: login, role-based job posting, browsing and applications.</p>
           </div>
           <div>
             <strong>Quick Links</strong>

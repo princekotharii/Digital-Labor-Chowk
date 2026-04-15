@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { loginUser, registerUser } from '../api/client'
+import { useEffect, useState } from 'react'
+import { getCurrentUser, loginUser, registerUser } from '../api/client'
 import { AuthContext } from './authContextValue'
 
 export function AuthProvider({ children }) {
@@ -48,6 +48,27 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('dlc-auth-user')
     localStorage.removeItem('dlc-auth-token')
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem('dlc-auth-token')
+
+    if (!token) {
+      return
+    }
+
+    getCurrentUser()
+      .then((result) => {
+        if (result?.user) {
+          setUser(result.user)
+          localStorage.setItem('dlc-auth-user', JSON.stringify(result.user))
+        }
+      })
+      .catch(() => {
+        setUser(null)
+        localStorage.removeItem('dlc-auth-user')
+        localStorage.removeItem('dlc-auth-token')
+      })
+  }, [])
 
   const value = { user, isAuthenticated: Boolean(user), login, register, logout }
 

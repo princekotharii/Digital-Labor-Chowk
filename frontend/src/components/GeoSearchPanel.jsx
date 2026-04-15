@@ -66,7 +66,7 @@ function GeoSearchPanel({ selectedSkill, language = 'en' }) {
       {view === 'map' ? (
         <div className="map-placeholder">
           <span><FaMapMarkerAlt /></span>
-          <p>{language === 'hi' ? 'बैकएंड कोऑर्डिनेट्स से मैप इंटीग्रेशन पॉइंट' : 'Map integration point with backend coordinates'}</p>
+          <p>{language === 'hi' ? 'लाइव मैप व्यू बैकएंड जियोलोकेशन डेटा से जोड़ा जाएगा।' : 'Live map view will use backend geolocation data.'}</p>
         </div>
       ) : loading ? (
         <div className="skeleton-list" aria-label="Loading workers">

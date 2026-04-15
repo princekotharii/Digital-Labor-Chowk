@@ -1,7 +1,13 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
 import app from './app.js'
 import { connectDb } from './config/connectDb.js'
 import { seedDatabase } from './config/seedDb.js'
+
+dotenv.config({
+  path: resolve(dirname(fileURLToPath(import.meta.url)), '../.env'),
+})
 
 const port = Number(process.env.PORT || 5000)
 

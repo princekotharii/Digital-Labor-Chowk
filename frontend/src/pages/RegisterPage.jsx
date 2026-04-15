@@ -70,7 +70,7 @@ function RegisterPage() {
             type="text"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Enter your name"
+            placeholder="Full name as per profile"
             required
           />
         </div>
@@ -90,7 +90,7 @@ function RegisterPage() {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="you@example.com"
+            placeholder="name@example.com"
             required
           />
         </div>
@@ -104,7 +104,7 @@ function RegisterPage() {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Create password"
+            placeholder="Choose a secure password"
             required
           />
         </div>
@@ -118,7 +118,7 @@ function RegisterPage() {
             type="password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Repeat password"
+            placeholder="Re-enter password"
             required
           />
         </div>
