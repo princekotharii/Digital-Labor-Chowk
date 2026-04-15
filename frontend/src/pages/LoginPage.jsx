@@ -63,7 +63,7 @@ function LoginPage() {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="worker@dlc.com or employer@dlc.com"
+            placeholder="name@example.com"
             required
           />
         </div>
@@ -77,7 +77,7 @@ function LoginPage() {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Enter password"
+            placeholder="Enter your password"
             required
           />
         </div>
@@ -90,9 +90,8 @@ function LoginPage() {
       </form>
 
       <div className="login-help muted">
-        <p>Demo accounts:</p>
-        <p><code>worker@dlc.com / 123456</code></p>
-        <p><code>employer@dlc.com / 123456</code></p>
+        <p>Use the account you created as a worker or employer.</p>
+        <p>Role-specific pages open automatically after sign-in.</p>
         <p className="register-link-row">
           New user? <Link to="/register"><FaUserPlus /> Register here</Link>
         </p>

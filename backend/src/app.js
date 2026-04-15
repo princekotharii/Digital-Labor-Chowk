@@ -3,6 +3,7 @@ import express from 'express'
 import authRoutes from './routes/authRoutes.js'
 import directoryRoutes from './routes/directoryRoutes.js'
 import healthRoutes from './routes/healthRoutes.js'
+import jobRoutes from './routes/jobRoutes.js'
 import ratingRoutes from './routes/ratingRoutes.js'
 import workerRoutes from './routes/workerRoutes.js'
 
@@ -22,6 +23,7 @@ app.get('/', (_req, res) => {
 app.use('/api/health', healthRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/workers', workerRoutes)
+app.use('/api/jobs', jobRoutes)
 app.use('/api/directory', directoryRoutes)
 app.use('/api/ratings', ratingRoutes)
 

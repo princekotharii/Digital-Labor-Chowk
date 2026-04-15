@@ -1,6 +1,6 @@
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 
-function AvailabilityToggle({ available, onToggle, language = 'en' }) {
+function AvailabilityToggle({ available, onToggle, language = 'en', disabled = false }) {
   const text = language === 'hi'
     ? {
       on: 'आज के लिए उपलब्ध',
@@ -19,6 +19,7 @@ function AvailabilityToggle({ available, onToggle, language = 'en' }) {
         type="button"
         className={`availability-btn ${available ? 'on' : 'off'}`}
         onClick={onToggle}
+        disabled={disabled}
       >
         {available ? <FaCheckCircle /> : <FaTimesCircle />}
         {available ? text.on : text.off}

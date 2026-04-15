@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaBolt, FaLanguage, FaMapMarkerAlt, FaRegClock, FaRocket, FaShieldAlt, FaTools, FaUsers } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 import AvailabilityToggle from '../components/AvailabilityToggle'
 import GeoSearchPanel from '../components/GeoSearchPanel'
 import LanguageVoicePanel from '../components/LanguageVoicePanel'
 import SectionCard from '../components/SectionCard'
 import SkillFilter from '../components/SkillFilter'
 import { labels } from '../data/labels'
-import { useDemoMode } from '../hooks/useDemoMode'
 
 const highlightedSkills = [
   'All Skills',
@@ -31,39 +31,29 @@ const highlightedStates = [
   'Maharashtra',
 ]
 
-const featuredOpportunities = [
-  {
-    id: 'f1',
-    title: 'Labour (Helper) Required for Site Work',
-    wage: 'Rs 700 / day',
-    city: 'Haridwar',
-    tone: 'tone-1',
-    tag: 'Immediate Hiring',
-  },
-  {
-    id: 'f2',
-    title: 'Mason Required for Residential Construction',
-    wage: 'Rs 900 / day',
-    city: 'Roorkee',
-    tone: 'tone-2',
-    tag: 'Verified Employer',
-  },
-  {
-    id: 'f3',
-    title: 'Electrician Needed for Wiring Project',
-    wage: 'Rs 1000 / day',
-    city: 'Dehradun',
-    tone: 'tone-3',
-    tag: 'High Demand',
-  },
-]
-
 function HomePage() {
   const [available, setAvailable] = useState(true)
   const [language, setLanguage] = useState('en')
   const [selectedSkill, setSelectedSkill] = useState('all')
+  const [stats, setStats] = useState(null)
+  const navigate = useNavigate()
   const t = labels[language]
-  const { demoMode } = useDemoMode()
+
+  useEffect(() => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'
+
+    fetch(`${API_BASE_URL}/jobs/stats`)
+      .then((res) => res.json())
+      .then((data) => setStats(data))
+      .catch(() => {
+        setStats({
+          openJobs: 0,
+          activeWorkers: 0,
+          verifiedEmployers: 0,
+          activeCities: 0,
+        })
+      })
+  }, [])
 
   return (
     <>
@@ -71,15 +61,19 @@ function HomePage() {
         <div className="hero-copy-block">
           <p className="hero-kicker">India Labor Network 2.0</p>
           <h2>{t.title}</h2>
-          <p>Find trusted workers quickly and help laborers get daily work with confidence.</p>
+          <p>Post work requirements, discover nearby workers, and manage applications from one dashboard.</p>
           <div className="hero-actions">
-            <button type="button" className="hero-cta">Post Requirement</button>
-            <button type="button" className="hero-ghost">Browse Jobs</button>
+            <button type="button" className="hero-cta" onClick={() => navigate('/post-job')}>
+              Post Requirement
+            </button>
+            <button type="button" className="hero-ghost" onClick={() => navigate('/browse-jobs')}>
+              Browse Jobs
+            </button>
           </div>
           <div className="hero-trust-row">
-            <span><FaUsers /> 2,400+ Active Workers</span>
-            <span><FaShieldAlt /> 1,100+ Verified Employers</span>
-            <span><FaRegClock /> Live in 12 Cities</span>
+            <span><FaUsers /> {(stats?.activeWorkers ?? 0).toLocaleString()} Active Workers</span>
+            <span><FaShieldAlt /> {(stats?.verifiedEmployers ?? 0).toLocaleString()} Verified Employers</span>
+            <span><FaRegClock /> Live in {stats?.activeCities ?? 0} Cities</span>
           </div>
         </div>
         <div className="hero-visual-block" aria-label="platform network visual">
@@ -87,7 +81,7 @@ function HomePage() {
           <div className="orb orb-b" />
           <article className="metric-card">
             <p>Live Requests</p>
-            <strong>128</strong>
+            <strong>{stats?.openJobs ?? 0}</strong>
             <small>in last 60 mins</small>
           </article>
           <article className="metric-card">
@@ -102,13 +96,6 @@ function HomePage() {
           </article>
         </div>
       </section>
-
-      {demoMode && (
-        <section className="card demo-strip reveal delay-1">
-          <h3>Live Demo Flow</h3>
-          <p className="muted">Register {">"} Login {">"} Workers availability {">"} Employers filter {">"} Trust ratings.</p>
-        </section>
-      )}
 
       <SectionCard title="Popular Skills" className="reveal delay-1">
         <div className="chip-list feature-chips">
@@ -126,42 +113,25 @@ function HomePage() {
         </div>
       </SectionCard>
 
-      <SectionCard title="Featured Opportunities" className="reveal delay-3">
-        <div className="featured-grid">
-          {featuredOpportunities.map((job) => (
-            <article key={job.id} className="featured-card">
-              <div className={`featured-media ${job.tone}`}>
-                <span>{job.tag}</span>
-              </div>
-              <div className="featured-body">
-                <h3>{job.title}</h3>
-                <p className="muted">{job.city}</p>
-                <p className="featured-wage">{job.wage}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </SectionCard>
-
-      <SectionCard title="Built For Scale" className="reveal delay-4">
+      <SectionCard title="Built For Scale" className="reveal delay-3">
         <div className="scale-grid">
           <article className="scale-card">
             <h3><FaRocket /> Expansion Ready</h3>
-            <p className="muted">Launch city by city with shared infra and predictable onboarding flow.</p>
+            <p className="muted">Launch city by city with shared infrastructure and predictable onboarding.</p>
           </article>
           <article className="scale-card">
             <h3><FaMapMarkerAlt /> Geo First</h3>
-            <p className="muted">Nearby workers and job locality make hiring faster and practical.</p>
+            <p className="muted">Nearby workers and job locality make hiring faster and more practical.</p>
           </article>
           <article className="scale-card">
             <h3><FaShieldAlt /> Trust Layer</h3>
-            <p className="muted">Profiles, ratings and worker availability combine into safer matching.</p>
+            <p className="muted">Profiles, ratings, and worker availability combine into safer matching.</p>
           </article>
         </div>
       </SectionCard>
 
       <section className="grid-2">
-        <SectionCard title="Availability Toggle" className="reveal delay-4">
+        <SectionCard title="Availability Toggle" className="reveal delay-3">
           <p className="section-tag"><FaBolt /> Real-time availability status</p>
           <AvailabilityToggle
             available={available}
@@ -170,18 +140,18 @@ function HomePage() {
           />
         </SectionCard>
 
-        <SectionCard title="Language And Voice" className="reveal delay-5">
+        <SectionCard title="Language And Voice" className="reveal delay-4">
           <p className="section-tag"><FaLanguage /> Primary English interface with optional Hindi switch</p>
           <LanguageVoicePanel language={language} onLanguageChange={setLanguage} />
         </SectionCard>
       </section>
 
-      <SectionCard title="Geo-Location Based Search" className="reveal delay-5">
+      <SectionCard title="Geo-Location Based Search" className="reveal delay-4">
         <p className="section-tag"><FaMapMarkerAlt /> Discover workers by radius and local chowk points</p>
         <GeoSearchPanel selectedSkill={selectedSkill} language={language} />
       </SectionCard>
 
-      <SectionCard title="Skill-Specific Categories" className="reveal delay-6">
+      <SectionCard title="Skill-Specific Categories" className="reveal delay-5">
         <p className="section-tag"><FaTools /> Filter fast by trade category</p>
         <SkillFilter selectedSkill={selectedSkill} onSelectSkill={setSelectedSkill} language={language} />
       </SectionCard>

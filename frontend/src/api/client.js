@@ -41,9 +41,24 @@ export function registerUser(payload) {
   })
 }
 
+export function getCurrentUser() {
+  return request('/auth/me')
+}
+
 export function getWorkers({ radius = 5, skill = 'all' } = {}) {
   const query = new URLSearchParams({ radius: String(radius), skill })
   return request(`/workers?${query.toString()}`)
+}
+
+export function getMyWorkerProfile() {
+  return request('/workers/me')
+}
+
+export function updateMyAvailability(available) {
+  return request('/workers/me/availability', {
+    method: 'PATCH',
+    body: JSON.stringify({ available }),
+  })
 }
 
 export function updateAvailability(id, available) {
